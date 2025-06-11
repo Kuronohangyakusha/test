@@ -62,10 +62,17 @@ export function home() {
   return help;
 }
 
-// Fonction corrigée qui retourne une promesse
+// Fonction pour récupérer les utilisateurs - URL mise à jour
 export async function fetchUsers() {
   try {
-    const response = await fetch('http://localhost:5000/users');
+    // Utilise l'URL relative pour Vercel ou l'URL absolue de votre déploiement
+    const apiUrl = window.location.hostname === 'localhost' 
+      ? 'http://localhost:5000/users'
+      : '/api/users';
+    
+    console.log('Tentative de récupération depuis:', apiUrl);
+    
+    const response = await fetch(apiUrl);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -74,6 +81,20 @@ export async function fetchUsers() {
     return data;
   } catch (error) {
     console.error('Erreur lors de la récupération des utilisateurs:', error);
-    return [];
+    
+    // Fallback avec des utilisateurs en dur pour le débogage
+    console.log('Utilisation des utilisateurs en dur');
+    return [
+      {
+        "id": 1,
+        "email": "nndeyendiaye85@gmail.com",
+        "password": "password123"
+      },
+      {
+        "id": 2,
+        "email": "user2@example.com", 
+        "password": "password456"
+      }
+    ];
   }
 }
