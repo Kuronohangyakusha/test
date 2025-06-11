@@ -10,8 +10,10 @@
     "server": "json-server --watch db.json --port 5000",
     "start": "node server.js"
   },
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  },
   "devDependencies": {
-    "json-server": "^1.0.0-beta.3",
     "vite": "^6.3.5"
   }
 }
